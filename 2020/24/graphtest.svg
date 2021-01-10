@@ -1,0 +1,54 @@
+<html>
+<!-- <style type="text/css">
+    svg { margin:0px;border:10px solid black;}
+</style> -->
+<body>
+
+<h1>My first SVG</h1>
+
+<svg width="800" height="600" viewBox="-300 -350 800 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+   
+    <g transform="scale(1,-1)">
+     <title>Layer 1</title>
+<circle cx="0" cy="0" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="0" y="0" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >0</text>
+<circle cx="60" cy="103.923048454133" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="60" y="103.923048454133" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >6</text>
+<circle cx="-60" cy="0" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="-60" y="0" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >12</text>
+<circle cx="-60" cy="-103.923048454133" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="-60" y="-103.923048454133" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >10</text>
+<circle cx="150" cy="51.9615242270663" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="150" y="51.9615242270663" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >7</text>
+<circle cx="-30" cy="-51.9615242270663" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="-30" y="-51.9615242270663" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >11</text>
+<circle cx="-120" cy="-103.923048454133" r="25" fill="black" stroke="black"/>
+<text xml:space="preserve" x="-120" y="-103.923048454133" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="white" fill="white" >14</text>
+<circle cx="60" cy="0" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="60" y="0" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >3</text>
+<circle cx="30" cy="-51.9615242270663" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="30" y="-51.9615242270663" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >1</text>
+<circle cx="120" cy="0" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="120" y="0" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >8</text>
+<circle cx="120" cy="103.923048454133" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="120" y="103.923048454133" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >5</text>
+<circle cx="0" cy="-103.923048454133" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="0" y="-103.923048454133" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >9</text>
+<circle cx="60" cy="-103.923048454133" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="60" y="-103.923048454133" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >2</text>
+<circle cx="-90" cy="-51.9615242270663" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="-90" y="-51.9615242270663" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >13</text>
+<circle cx="90" cy="51.9615242270663" r="25" fill="white" stroke="black"/>
+<text xml:space="preserve" x="90" y="51.9615242270663" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="black" fill="black" >4</text>
+
+<circle cx="-30" cy="-51.9615242270663" r="25" fill="#00c3ff" stroke="black"/>
+<text xml:space="preserve" x="-30" y="-51.9615242270663" transform="rotate(0,0,0) scale(1,-1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="#ee0b0b" fill="#ff0000" >11</text>
+<text xml:space="preserve" x="-30" y="-51.9615242270663" transform="rotate(0,0,0) scale(1,1)"text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="14" id="svg_6" stroke-opacity="null" stroke-width="0" stroke="#ee0b0b" fill="#ff0000" >11</text>
+
+    </g>
+   </svg>
+
+</body>
+</html>
+
