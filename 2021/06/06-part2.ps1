@@ -1,3 +1,4 @@
+$stopwatch =  [system.diagnostics.stopwatch]::StartNew()
 $ErrorActionPreference="Stop"
 $data=@()
 Get-Content "$PSScriptRoot\06.txt" | %{$data+=$_}
@@ -5,7 +6,7 @@ Get-Content "$PSScriptRoot\06.txt" | %{$data+=$_}
 $fish=@{}
 $numFish=0
 $data.Split(',') | %{$fish[$numFish++]=[int]$_}
-$fish.Values -join ','
+#$fish.Values -join ','
 
 $numDays=256
 
@@ -22,10 +23,12 @@ for ($d=1;$d -le $numDays;$d++)
 {
     for ($i=$d+9;$i -le $numDays;$i+=7)
     {
-        $days[$i] += $days[$d]
+        $days[$i    ] += $days[$d]
     }
 }
 $total=($days.Values |  measure -sum).Sum + $numFish
-$total
 
+$stopwatch.Stop()
+$total
+"$($stopwatch.Elapsed.hours):$($stopwatch.Elapsed.minutes):$($stopwatch.Elapsed.seconds):$($stopwatch.Elapsed.Milliseconds)"
 #for ($i=1;$i -le $numDays;$i++) { "Day $i : $($days[$i])"}
