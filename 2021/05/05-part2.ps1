@@ -9,14 +9,11 @@ foreach($coordTxt in $data)
     $sy=[int]$Matches[2]
     $ex=[int]$Matches[3]
     $ey=[int]$Matches[4]
-    #if (($sx -eq $ex) -or ($sy -eq $ey))
-    #{
-        $coords = [PSCustomObject]@{sx=$sx;sy=$sy;ex=$ex;ey=$ey}
-        $ventLines+=$coords
-    #}
+    $coords = [PSCustomObject]@{sx=$sx;sy=$sy;ex=$ex;ey=$ey}
+    $ventLines+=$coords
 }
 
-$ventLines
+#$ventLines
 
 $vlCount=@{}
 foreach ($vl in $ventLines)
@@ -27,7 +24,7 @@ foreach ($vl in $ventLines)
     $ix=$sx; $iy=$sy
     $numPoints=[Math]::Abs($sx-$ex)
     if ($numPoints -eq 0) {$numPoints=[Math]::Abs($sy-$ey)}
-    $numPoints++
+    $numPoints++ # include the last point too
     for ($i=0;$i -lt $numPoints;$i++)
     {
         $key="$ix,$iy"
@@ -40,3 +37,4 @@ foreach ($vl in $ventLines)
 $count=0
 $vlCount.Values | %{if ($_ -ge 2) {$count++}}
 $count
+# Answer: 20898

@@ -47,3 +47,5 @@ foreach ($vl in $ventLines)
 $count=0
 $vlCount.Values | %{if ($_ -ge 2) {$count++}}
 $count
+
+# Answer: 7674
