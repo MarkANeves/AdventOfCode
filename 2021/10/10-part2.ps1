@@ -1,3 +1,4 @@
+$stopwatch =  [system.diagnostics.stopwatch]::StartNew()
 $data=@()
 Get-Content "$PSScriptRoot\10.txt" | %{$data+=$_}
 
@@ -50,3 +51,5 @@ foreach ($line in $data)
 }
 $compScores =$compScores | sort
 $compScores[($compScores.Count-1)/2]
+
+"$($stopwatch.Elapsed.hours):$($stopwatch.Elapsed.minutes):$($stopwatch.Elapsed.seconds):$($stopwatch.Elapsed.Milliseconds)"
