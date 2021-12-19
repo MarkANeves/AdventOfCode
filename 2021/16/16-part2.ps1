@@ -1,5 +1,5 @@
 $ErrorActionPreference="Stop"
-$global:data=Get-Content "$PSScriptRoot\16.txt"
+$global:data=Get-Content "$PSScriptRoot\16test.txt"
 #$global:data
 $global:bin=""
 
@@ -27,20 +27,32 @@ function ReadBits($numBits)
     return $n
 }
 
+$global:maxLiteral=0
+$global:maxLiteralVal=0
+
 function ReadLiteral
 {
     $result=0
     $topBit=1
+#    $bitCount=0
     while ($topBit -gt 0)
     {
         $n=ReadBits 5
         $topBit = $n -band 0x10
-        $result = ($result*16) + ($n -band 0xf)
+        $result = ([double]$result*[double]16) + [double]($n -band 0xf)
+ #       $bitCount+=4
     }
+
+ #   if ($bitCount -gt 32)
+ #   {
+ #       $bitCount=$bitCount
+ #   }
+
+ #   if ($global:maxLiteral -lt $bitCount ) {$global:maxLiteral=$bitCount; $global:maxLiteralVal=$result}
 
     return $result
 }
-
+#5325350060278
 function MakePacket($pv,$pt)
 {
     $o=[PSCustomObject]@{
@@ -61,7 +73,7 @@ function DisplayPacket($name,$pk)
     Write-Host "--------$name---------------"
     if ($null -eq $pk)
     {
-        Write-Host "$null"
+        Write-Host "null"
     }
     else {
         Write-Host "pv = $($pk.pv)"
@@ -72,7 +84,7 @@ function DisplayPacket($name,$pk)
         Write-Host "numSubPackets = $($pk.numSubPackets)"
         Write-Host "parent = $($pk.parent)"
         Write-Host "bitLen = $($pk.bitLen)"
-        Write-Host "data = $data"
+        #Write-Host "data = $data"
     }
 }
 
@@ -84,10 +96,18 @@ function CalcValue($pk)
     }
     if ($pk.pt -eq 0)
     {
+        if ($pk.children.v -gt 0x7fffffff)
+        {
+            $xa=1
+        }
         $pk.v = [double]($pk.children.v | measure -Sum).Sum
     }
     if ($pk.pt -eq 1)
     {
+        if ($pk.children.v -gt 0x7fff)
+        {
+            $xa=1
+        }
         $p=1;$pk.children.v | %{$p=[double]$_ * [double]$p}
         $pk.v = [double]$p
     }
@@ -101,16 +121,29 @@ function CalcValue($pk)
     }
     if ($pk.pt -eq 5)
     {
+        if ($pk.children.Count -lt 2) {throw "not enough children"}
         if ($pk.children[0].v -gt $pk.children[1].v) { $pk.v=1 }else{ $pk.v=0 }
     }
     if ($pk.pt -eq 6)
     {
+        if ($pk.children.Count -lt 2) {throw "not enough children"}
         if ($pk.children[0].v -lt $pk.children[1].v) { $pk.v=1 }else{ $pk.v=0 }
     }
     if ($pk.pt -eq 7)
     {
+        if ($pk.children.Count -lt 2) {throw "not enough children"}
         if ($pk.children[0].v -eq $pk.children[1].v) { $pk.v=1 }else{ $pk.v=0 }
     }
+}
+
+function PacketNotComplete($pk)
+{
+    return ($pk.subPacketBitLen -gt 0 -or $pk.numSubPackets -gt 0)
+}
+
+function PacketComplete($pk)
+{
+    return ($pk.subPacketBitLen -eq 0 -or $pk.numSubPackets -eq 0)
 }
 
 function ReadPackets($parent)
@@ -133,6 +166,13 @@ function ReadPackets($parent)
         $l=ReadLiteral;
         $nextPk.v = $l
         $nextPk.bitLen += [convert]::ToString($l,16).Length * 5
+
+        if ($nextPk.v -gt 0x7FFFFFFF)
+        {
+            Write-Host "Parent version: $($parent.pt)"
+            $xa=1
+        }
+
     }
     else {
         $i = ReadBits 1
@@ -157,22 +197,41 @@ function ReadPackets($parent)
         $parent.subPacketBitLen -= $nextPk.bitLen
         $parent.numSubPackets -=1
 
-        CalcValue $parent
+        if ($parent.subPacketBitLen -lt 6 -and $parent.subPacketBitLen -gt 0)
+        {
+            Write-Host "Oh no!"
+        }
+
+        if ($parent.subPacketBitLen -lt 0 -and  $parent.numSubPackets -lt 0)
+        {
+            Write-Host "Oh no!"
+        }
     }
 
-    if ($nextpk.subPacketBitLen -gt 0 -or $nextPk.numSubPackets -gt 0)
+    DisplayPacket "nextPk" $nextPk
+
+    if (PacketNotComplete $nextPk)
     {
         ReadPackets $nextPk | Out-Null
     }
 
     if ($null -ne $parent)
     {
-        if ($parent.subPacketBitLen -gt 0 -or $parent.numSubPackets -gt 0)
+        if (PacketNotComplete $parent) #($parent.subPacketBitLen -gt 0 -or $parent.numSubPackets -gt 0)
         {
             ReadPackets $parent | Out-Null
         }
         else {
-            ReadPackets $parent.parent | Out-Null
+            DisplayPacket "parent" $parent
+            DisplayPacket "parent.parent" $parent.parent
+            $xa=1
+            $nextParent= $parent.parent
+            while (PacketComplete $nextParent)
+            {
+                $nextParent = $nextParent.parent
+            }
+
+            ReadPackets $nextParent | Out-Null
         }
     }
 
@@ -183,4 +242,21 @@ function ReadPackets($parent)
 }
 
 $root = ReadPackets $null
+"Result: $($root.v)"
+"max literal: $($global:maxLiteral)"
+"max literal val: $($global:maxLiteralVal)"
+
+#319542185
+
+function Calc2($pk)
+{
+    foreach ($c in $pk.children)
+    {
+        Calc2 $c
+    }
+
+    CalcValue $pk
+}
+
+Calc2 $root
 "Result: $($root.v)"
