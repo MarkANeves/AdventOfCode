@@ -21,7 +21,6 @@ function AddToQueue($priority,$k,$x,$y)
     if ($null -eq $global:queue) {$global:queue = $newitem; return}
 
     $i = $global:queue
-    $last
     while ($null -ne $i)
     {
         if ($i.priority -ge $newitem.priority)

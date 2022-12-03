@@ -1,6 +1,6 @@
 $ErrorActionPreference="Stop"
 $data=@()
-Get-Content "$PSScriptRoot\15test.txt" | %{$data+=$_}
+Get-Content "$PSScriptRoot\15.txt" | %{$data+=$_}
 
 $maxx=$data[0].Length
 $maxy=$data.Length
