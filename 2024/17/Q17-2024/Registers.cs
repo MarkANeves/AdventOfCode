@@ -8,8 +8,8 @@ namespace Q17_2024
 {
     internal class Registers
     {
-        public Int32 A = 0;
-        public Int32 B = 0;
-        public Int32 C = 0;
+        public long A = 0;
+        public long B = 0;
+        public long C = 0;
     }
 }

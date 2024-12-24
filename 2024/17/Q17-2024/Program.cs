@@ -1,8 +1,16 @@
 ﻿
 using Q17_2024;
 
+long startA = 11217800000;
 
-int getComboOperand(int A, int B, int C, int v)
+if (args.Length > 0)
+{
+    startA = long.Parse(args[0]);
+}
+
+Console.WriteLine($"StartA: {startA}");
+
+long getComboOperand(long A, long B, long C, long v)
 {
     if (v>=0 && v<=3){
         return v;
@@ -19,13 +27,13 @@ int getComboOperand(int A, int B, int C, int v)
     throw new Exception($"combo op : {v}");
 }
 
-int[] calc(int A,int[] program)
+long[] calc(long A,long[] program)
 {
-    var B = 0;
-    var C = 0;
-    var p = 0;
+    long B = 0;
+    long C = 0;
+    long p = 0;
     bool running = true;
-    var result = new List<int>();
+    var result = new List<long>();
     while (running) {
 
         var opcode = program[p++];
@@ -35,7 +43,7 @@ int[] calc(int A,int[] program)
             double d = getComboOperand(A,B,C,operand);
             d = Math.Pow(2,d);
             double div = (A / d);
-            A = (int)Math.Floor(div);
+            A = (long)Math.Floor(div);
         }
 
         if (opcode == 1) {
@@ -74,7 +82,7 @@ int[] calc(int A,int[] program)
             double d = getComboOperand(A,B,C, operand);
             d = Math.Pow(2, d);
             double div = (A / d);
-            B = (int)Math.Floor(div);
+            B = (long)Math.Floor(div);
         }
 
         if (opcode == 7) {
@@ -82,7 +90,7 @@ int[] calc(int A,int[] program)
             double d = getComboOperand(A,B,C, operand);
             d = Math.Pow(2, d);
             double div = (A / d);
-            C = (int)Math.Floor(div);
+            C = (long)Math.Floor(div);
         }
 
         if (p >= program.Length) {
@@ -110,21 +118,21 @@ int[] calc(int A,int[] program)
 
 var registers = new Registers();
 
-//registers.A = 37293246;
-//registers.B = 0;
-//registers.C = 0;
-//int[] program = { 2, 4, 1, 6, 7, 5, 4, 4, 1, 7, 0, 3, 5, 5, 3, 0 };
-
-registers.A = 2024;
+registers.A = startA;
 registers.B = 0;
 registers.C = 0;
-int[] program = { 0, 3, 5, 4, 3, 0 };
+long[] program = { 2, 4, 1, 6, 7, 5, 4, 4, 1, 7, 0, 3, 5, 5, 3, 0 };
+
+//registers.A = 2024;
+//registers.B = 0;
+//registers.C = 0;
+//long[] program = { 0, 3, 5, 4, 3, 0 };
 
 bool equal = false;
 while (!equal)
 {
     registers.A++;
-    if (registers.A % 1000 == 0) {
+    if (registers.A % 100000 == 0) {
         Console.WriteLine($"A: {registers.A}");
     }
     var r = calc(registers.A, program);
@@ -134,3 +142,5 @@ while (!equal)
 Console.WriteLine($"result: {registers.A}");
 
 // answer: 1,5,0,1,7,4,1,0,3
+// 2147400000
+// 2147483591
