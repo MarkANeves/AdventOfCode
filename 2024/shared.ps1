@@ -17,3 +17,17 @@ function w2($s)
 {
    Write-Host $s
 }
+
+function copyArray($arr,$remove) {
+    $newArr = @()
+    foreach($e in $arr) {
+        if ($null -eq $remove) {
+            $newArr += $e
+        }else {
+            if ($e -ne $remove) {
+                $newArr += $e
+            }
+        }
+    }
+    return $newArr
+}

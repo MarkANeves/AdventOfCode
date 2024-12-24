@@ -26,9 +26,9 @@ Get-Content "$PSScriptRoot\19.txt" | %{
     }
 }
 $designs = $designs | sort
-$designs
+#$designs
 "--------"
-$patterns
+#$patterns
 
 function isNotUnique($pattern, $designs, [int]$index, [int]$maxDesignLen) {
     if ($index -ge $designs.Count) {
@@ -60,7 +60,8 @@ function isNotUnique($pattern, $designs, [int]$index, [int]$maxDesignLen) {
 }
 
 $designsToRemove=@()
-foreach ($p in $designs)
+$copyOfDesigns = copyArray $designs
+foreach ($p in $copyOfDesigns)
 {
     if ($p.Length -eq 1) {
         continue
@@ -72,6 +73,7 @@ foreach ($p in $designs)
     if ($b) {
         w2 "Removing $p"
         $designsToRemove+=$p
+        $designs = copyArray $designs $p
     }
     rh "Finished testing pattern"
 }
