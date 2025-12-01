@@ -5,7 +5,7 @@ $lines=@()
 Get-Content "$PSScriptRoot\04.txt" | %{
     $line = $_
     $a = $line.ToCharArray()
-    [array]::Reverse($a)
+    [array]::($a)
     $line = $a -join ''
     $lines+=$line
 }
