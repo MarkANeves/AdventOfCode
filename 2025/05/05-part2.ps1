@@ -1,12 +1,8 @@
+$stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
 $total=0
 $ranges=@()
-$processRange=$true
-Get-Content "$PSScriptRoot\05.txt" | %{
-    if ($_ -eq "") {
-        $processRange=$false
-    }
-    if ($processRange) {
-        $_ -match "^(\d+)-(\d+)$" | Out-Null
+Get-Content "C:\git\AdventOfCode\2025\05\05.txt" | %{
+    if ($_ -match "^(\d+)-(\d+)$") {
         $ranges += @{s=[long]$matches[1];e=[long]$matches[2]}
     }
 }
@@ -29,18 +25,28 @@ function displayRanges($ranges)
 
 $newRanges=@()
 $merged=$true
+$iterantions=0
 while ($merged)
 {
     $merged = $false
     for ($i=0;$i -lt $ranges.Count;$i++) {
+        #$iterantions=0
+        if ($ranges[$i].s -eq -1)
+        {
+            continue
+        }
+
         for ($j=0;$j -lt $ranges.Count;$j++) {
             if ($i -eq $j) {
                 continue
             }
-            if ($ranges[$i].s -eq -1 -or $ranges[$j].s -eq -1)
+
+            if ($ranges[$j].s -eq -1)
             {
                 continue
             }
+            $iterantions++
+
             $mr = mergeRanges $ranges[$i] $ranges[$j]
             if ($null -ne $mr) {
                 $newRanges += $mr
@@ -56,13 +62,16 @@ while ($merged)
         }
         # Remove from next iteration
         $ranges[$i] = @{s=-1;e=-1}
+        #"iterations: $iterantions"
     }
     $ranges = $newRanges
     $newRanges=@()
 }
-displayRanges $ranges
+#displayRanges $ranges
 foreach ($r in $ranges) {
     $total+= ($r.e - $r.s) +1
 }
-"Total: $total"
+"Total: $total iterations: $iterantions"
 # 350684792662845
+$stopwatch.Stop()
+"Time: $($stopwatch.Elapsed.TotalMilliseconds) ms"
